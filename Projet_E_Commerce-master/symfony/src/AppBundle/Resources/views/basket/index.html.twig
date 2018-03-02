@@ -1,0 +1,101 @@
+
+{% extends "::base.html.twig" %}
+
+
+{% block title %}Panier{% endblock %}
+
+{% block body %}
+    {% for basket in user.basketes %}
+        {% if basket.statusBasket == 1  %}
+            <form action="/clearBasket" method="post">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-sm-12 col-md-10 col-md-offset-1">
+                                <table class="table table-hover">
+                                    <thead>
+                                    <tr>
+                                        <th>Product</th>
+                                        <th>Quantity</th>
+                                        <th class="text-center">Price HT</th>
+                                        <th class="text-center">Price TTC</th>
+                                        <th class="text-center">Total</th>
+                                        <th>                <button type="submit" class="btn btn-danger">Suprimer</button> </th>
+                                    </tr>
+                                    </thead>
+                                    <tbody>
+                                    {% if basket.quantities is defined %}
+                                    {% for quantities in basket.quantities %}
+                                        <tr>
+                                            <td class="col-sm-8 col-md-6">
+
+                                                <div class="media">
+
+                                                    <a class="thumbnail pull-left" href="#"></a>
+                                                    <div class="media-body">
+                                                        <h4 class="media-heading"><a href="/fiche_prod/{{ quantities.product.id_product }}">{{ quantities.product.name }}</a></h4>
+                                                        <span>Status: </span><span class="text-success"><strong>In Stock</strong></span>
+                                                    </div>
+                                                </div></td>
+                                            <td class="col-sm-1 col-md-1" style="text-align: center">
+                                                {{ quantities.quant }}
+                                            </td>
+                                            <td class="col-sm-1 col-md-1 text-center"><strong>{{ quantities.product.priceHT }}€</strong></td>
+                                            <td class="col-sm-1 col-md-1 text-center"><strong>{{ quantities.product.priceTTC}}€</strong></td>
+                                            <td class="col-sm-1 col-md-1 text-center"><strong>{{ quantities.product.priceTTC * quantities.quant }}€</strong></td>
+                                            <td class="col-sm-1 col-md-1">
+                                                <input type="checkbox" name="{{  quantities.product.idProduct }}" id="{{ 'product-' + quantities.product.idProduct }}" value="{{ quantities.product.idProduct }}" style="position: sticky;opacity: 1;">
+                                            </td>
+                                        </tr>
+                                    {% endfor %}
+                                    {% endif %}
+
+                                    <tr>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td><h5>Subtotal</h5></td>
+                                        <td class="text-right"><h5><strong>{{ basket.totalTTC }} €</strong></h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td><h5>Estimated shipping</h5></td>
+                                        <td class="text-right"><h5><strong>0€</strong></h5></td>
+                                    </tr>
+                                    <tr>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td><h3>Total</h3></td>
+                                        <td class="text-right"><h3><strong>{{ basket.totalTTC }} €</strong></h3></td>
+                                    </tr>
+                                    <tr>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>   </td>
+                                        <td>
+                                            <a href="/">
+                                                <span class="glyphicon glyphicon-shopping-cart"></span> Continue Shopping
+                                            </a>
+                                        </td>
+                                        <td>
+                                            <a href="/endBasket" class="btn btn-success">
+                                                Checkout <span class="glyphicon glyphicon-play"></span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+            </form>
+        {% endif %}
+    {% endfor %}
+
+{% endblock %}

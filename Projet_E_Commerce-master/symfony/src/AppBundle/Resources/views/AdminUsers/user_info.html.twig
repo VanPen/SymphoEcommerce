@@ -1,0 +1,75 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}AppBundle:AdminUsers:Infos Users{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <h2>{{ user.name }} {{ user.firstname }}</h2>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h3>Commandes Passées</h3>
+        </div>
+    </div>
+
+    <div class="table-responsive">
+        <table class="table center-aligned-table">
+            <thead>
+            <tr class="text-primary">
+                <th>No</th>
+                <th>No Products</th>
+                <th>Total Weight</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Adress</th>
+                <th>Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for order in orders %}
+                <tr class="">
+                <td>{{ order.idOrder }}</td>
+                <td>{{ order.nbProduct }}</td>
+                <td>{{ order.totalWeight }}</td>
+                <td>{{ order.dateOrder|date('d-m-Y') }}</td>
+                {% if order.orderStatus == 0 %}
+                <td><label class="btn btn-warning btn-sm">Waiting</label></td>
+                    {% elseif order.orderStatus == 1 %}
+                        <td><label class="btn btn-primary btn-sm">in Progress</label></td>
+                    {% elseif order.orderStatus == 2 %}
+                        <td><label class="btn btn-info btn-sm">in Delivery</label></td>
+                        {% elseif order.orderStatus == 3 %}
+                            <td><label class="btn btn-success btn-sm">Finish</label></td>
+                {% else  %}
+                    <td><label class="btn btn-danger btn-sm">Cancel</label></td>
+                {% endif %}
+                <td>{{ order.adresses.nameAdress }}</td>
+                <td>{{ order.totalTTC }}€</td>
+                <td><a href="/admin/manage_order/{{ order.idOrder }}" class="btn btn-primary btn-md">Manage</a></td>
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <h3>Les Adresses</h3>
+        </div>
+    </div>
+    <div class="row">
+        {% for adress in adresses %}
+            <div class="adress">
+                <p><u>Nom Adresse</u>  :  <strong>{{ adress.nameAdress }}</strong></p>
+                <p>{{ adress.nameDesti }}<br>
+                    {{ adress.adress }}<br>
+                    {{ adress.cp }} {{ adress.city }}<br>
+                    {{ adress.country }}
+                </p>
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

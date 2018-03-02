@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <title>{% block title %}Welcome!{% endblock %}</title>
+        {% block stylesheets %}{% endblock %}
+        <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
+       
+        <link href='{{ asset("assets/plugins/bootstrap/css/bootstrap.min.css") }}' rel="stylesheet">
+        <!-- chartist CSS -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link href='{{ asset("assets/plugins/chartist-js/dist/chartist.min.css") }}' rel="stylesheet">
+        <link href='{{ asset("assets/plugins/chartist-js/dist/chartist-init.css") }}' rel="stylesheet">
+        <link href='{{ asset("assets/plugins/chartist-plugin-tooltip-master/dist/chartist-plugin-tooltip.css") }}' rel="stylesheet">
+        <!--This page css - Morris CSS -->
+        <link href='{{ asset("assets/plugins/c3-master/c3.min.css") }}' rel="stylesheet">
+        <!-- Custom CSS -->
+        <link href='{{ asset("css/style.css") }}' rel="stylesheet">
+        <!-- You can change the theme colors from here -->
+        <link href='{{ asset("css/colors/blue.css") }}' id="theme" rel="stylesheet">
+        <script
+               src="https://code.jquery.com/jquery-3.2.1.js"
+               integrity="sha256-DZAnKJ/6XZ9si04Hgrsxu/8s717jcIzLy3oi35EouyE="
+               crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </head>
+    <body class="fix-header fix-sidebar card-no-border">
+        <div id="main-wrapper">
+            <!-- ============================================================== -->
+            <!-- Topbar header - style you can find in pages.scss -->
+            <!-- ============================================================== -->
+            <header class="topbar">
+                <nav class="navbar top-navbar navbar-toggleable-sm navbar-light">
+                    <!-- ============================================================== -->
+                    <!-- Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-header">
+                        <a class="navbar-brand" href="/">
+                            <!-- Logo icon --><b>
+                                <!--You can put here icon as well // <i class="wi wi-sunset"></i> //-->
+
+                                <!-- Light Logo icon -->
+                                <img src='{{ asset("assets/images/logo-light-icon.png") }}' alt="homepage" class="light-logo" />
+                            </b>
+                            <!--End Logo icon -->
+                            <!-- Logo text --><span class="nav-link dropdown-toggle text-muted waves-effect waves-dark">
+
+                             <!-- Light Logo text -->
+                             E-Commerce</span> </a>
+                    </div>
+                    <!-- ============================================================== -->
+                    <!-- End Logo -->
+                    <!-- ============================================================== -->
+                    <div class="navbar-collapse">
+                        <!-- ============================================================== -->
+                        <!-- toggle and nav items -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav mr-auto mt-md-0">
+                            <!-- This is  -->
+                            <li class="nav-item"> <a class="nav-link nav-toggler hidden-md-up text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="mdi mdi-menu"></i></a> </li>
+                            <!-- ============================================================== -->
+                            <!-- Search -->
+                            <!-- ============================================================== -->
+                            <li class="nav-item hidden-sm-down search-box"> <a class="nav-link hidden-sm-down text-muted waves-effect waves-dark" href="javascript:void(0)"><i class="ti-search"></i></a>
+                                <form class="app-search" action="/result" method="post">
+                                    <input type="text" class="form-control" name="product" placeholder="Search & enter"> <a class="srh-btn"><i class="ti-close"></i></a> </form>
+                            </li>
+                        </ul>
+                        <!-- ============================================================== -->
+                        <!-- User profile and search -->
+                        <!-- ============================================================== -->
+                        <ul class="navbar-nav my-lg-0">
+                            <!-- ============================================================== -->
+                            <!-- Profile -->
+                            <!-- ============================================================== -->
+
+                            <li class="nav-item dropdown-toggle" style="margin-right: 50px">
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/"><i class="fa fa-arrow-left" aria-hidden="true"></i>
+
+                                    Retour
+                                </a>
+                            </li>
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                                {% if app.user.hasRole('ROLE_ADMIN') %}
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/admin">
+                                            Admin
+                                        </a>
+                                    </li>
+                                {% endif %}
+                                <li class="nav-item dropdown-toggle ">
+                                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" data-toggle="dropdown">
+                                        {{ app.user.username }}
+                                        <span class="caret"></span></a>
+                                    <ul class="dropdown-menu" style="left: 78%">
+                                        <li><a href="/profile">Profile</a></li>
+                                        <li><a href="/order/client/{{ app.user.id }}">Orders</a></li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="{{ path('fos_user_security_logout') }}">
+                                        Logout
+                                    </a>
+                                </li>
+                            {% else %}
+                            <li class="nav-item dropdown">
+                                <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="{{ path('fos_user_security_login') }}">Login</a>
+                            </li>
+                            <li class="nav-item dropdown">
+                               <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="/register">Register</a>
+                            </li>
+                            {% endif %}
+                               <!-- <a class="nav-link dropdown-toggle text-muted waves-effect waves-dark" href="" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Victor</a>-->
+                            {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="nav-item dropdown">
+                                <a style="font-size: 23px;" href="/pannier" class=" nav-link dropdown-toggle text-muted waves-effect waves-dark">
+                                        <i class="fa fa-shopping-basket" aria-hidden="true">
+                                            <span style=" font-weight: bold;font-family: monospace;" class="badge">
+                                                {% for panier in app.user.basketes %}
+                                                    {% if panier.statusBasket == 1 %}
+                                                        {{ panier.quantities|length }}
+                                                    {% endif %}
+                                                {% endfor %}
+                                            </span>
+                                        </i>
+                                    </a>
+                            </li>
+                            {% endif %}
+
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+        </div>
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        <div class="alert alert-info alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message }}
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+
+        <div>
+            {% block fos_user_content %}
+            {% endblock fos_user_content %}
+        </div>
+        {% block body %}{% endblock %}
+        {% block javascripts %}
+        {% endblock %}
+        <script src='{{ asset("assets/plugins/jquery/jquery.min.js") }}'></script>
+        <!-- Bootstrap tether Core JavaScript -->
+        <script src='{{ asset("assets/plugins/bootstrap/js/tether.min.js") }}'></script>
+        <script src='{{ asset("assets/plugins/bootstrap/js/bootstrap.min.js") }}'></script>
+        <!-- slimscrollbar scrollbar JavaScript -->
+        <script src='{{ asset("js/jquery.slimscroll.js") }}'></script>
+        <!--Wave Effects -->
+        <script src='{{ asset("js/waves.js") }}'></script>
+        <!--Menu sidebar -->
+        <script src='{{ asset("js/sidebarmenu.js") }}'></script>
+        <!--stickey kit -->
+        <script src='{{ asset("assets/plugins/sticky-kit-master/dist/sticky-kit.min.js") }}'></script>
+        <!--Custom JavaScript -->
+        <script src='{{ asset("js/custom.min.js") }}'></script>
+    </body>
+</html>

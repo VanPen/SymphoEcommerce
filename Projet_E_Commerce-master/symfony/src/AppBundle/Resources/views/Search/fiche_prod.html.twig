@@ -1,0 +1,87 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+
+    <body>
+
+    <div id="truc" class="container">
+
+        <!-- Portfolio Item Heading -->
+        <h1 class="my-4"> {{ test.name }}
+
+        </h1>
+        <p>Reference : {{ test.ref }}</p>
+
+        <!-- Portfolio Item Row -->
+        <div class="row">
+            <div class="col-md-8">
+                {% if image is empty %}
+                    <img class="img-fluid" id="image_prod" src="https://vide-greniers.org/images/picture/traitementPhoto.png"  alt="">
+                {% else %}
+                    <img class="img-fluid" id="image_prod" src="{{ image[0].image }}"  alt="">
+                {% endif %}
+            </div>
+
+            <div id="case_product" class="col-md-4">
+                <h3 class="my-3">Prix HT</h3>
+                <p> {{ test.priceHT }} </p>
+                <h3 class="my-3">Prix TTC</h3>
+                <p> {{ test.priceTTC }} </p>
+                <h3 class="my-3">Couleur : </h3>
+                <select>
+                    <option>{{ test.color }}</option>
+                </select>
+                {% if test.statutProduct == 1 %}
+                <h3 class="my-3" style="color: greenyellow">En stock</h3>
+                <form method="post" action="/addBasket/{{ test.id_product }}">
+                    <label>Quantiter : </label><input type="number" min="0" value="1" name="quantity"><br>
+                    <button type="submit" class="btn btn-success add_panier"><i class="fa fa-cart-plus" aria-hidden="true"></i></button>
+                </form>
+                {% elseif test.statutProduct == 0 %}
+                <h3 class="my-3" style="color: red">Epuisée</h3>
+                {% endif %}
+            </div>
+
+        </div>
+
+        <div class="row">
+
+            <div id="description">
+                <h4 class="my-4">Description</h4>
+                <p>{% autoescape false %}
+                {{ test.describ }}<br>
+                {% endautoescape %}</p>
+            </div>
+
+        </div>
+        <div class="row">
+
+            <div id="description">
+                <h4 class="my-4">Caracterisque</h4>
+                <p>{% autoescape false %}
+                        {{ test.feature }}<br>
+                    {% endautoescape %}</p>
+            </div>
+
+        </div>
+        <!-- /.row -->
+
+    </div>
+    <!-- /.container -->
+
+    <!-- Footer -->
+    <footer class="py-5 bg-dark">
+        <div class="container">
+            <p class="m-0 text-center text-white">Copyright &copy; Serenité du code</p>
+        </div>
+        <!-- /.container -->
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    </body>
+
+{% endblock %}
+

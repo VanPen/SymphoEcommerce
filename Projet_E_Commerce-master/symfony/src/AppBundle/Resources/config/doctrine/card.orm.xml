@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\cardRepository" name="AppBundle\Entity\card">
+    <id name="id_card" type="integer" column="id_card">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="idUser" type="integer" column="id_user"/>
+    <field name="numberCard" type="text" column="number_card"/>
+    <field name="nameUserCard" type="string" column="name__user_card" length="255"/>
+    <field name="dateExpir" type="string" column="date_expir" length="5"/>
+    <many-to-one field="user" target-entity="users" inversed-by="adresses"></many-to-one>
+  </entity>
+</doctrine-mapping>

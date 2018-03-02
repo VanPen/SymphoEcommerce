@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\VisitRepository" name="AppBundle\Entity\Visit">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="adressIp" type="string" column="adress_ip" length="255"/>
+    <field name="agentClient" type="string" column="agent_client" length="255"/>
+    <field name="lastConnection" type="datetime" column="last_connection"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,13 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:Adress:index{% endblock %}
+
+{% block body %}
+    {% if adress %}
+        {{ dump(adress) }}
+    {% else %}
+        <p>Vous n'avez pas d'adresse enregistrer sur notre site !</p>
+    {% endif %}
+    <a href="/adress/new">Ajouter une adresse</a>
+
+{% endblock %}

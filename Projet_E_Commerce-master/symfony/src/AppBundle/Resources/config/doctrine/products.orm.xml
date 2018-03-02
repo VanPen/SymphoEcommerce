@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+
+  <entity repository-class="AppBundle\Repository\productsRepository" name="AppBundle\Entity\products">
+
+    <id name="id_product" type="integer" column="id_product">
+
+      <generator strategy="AUTO"/>
+
+    </id>
+
+    <field name="name" type="string" column="name" length="255"/>
+
+    <field name="ref" type="string" column="ref" length="255" unique="true"/>
+
+    <field name="describ" type="text" column="describ"/>
+
+    <field name="feature" type="text" column="feature"/>
+
+    <field name="color" type="string" column="color" length="200"/>
+
+    <field name="weigth" type="float" column="weigth"/>
+
+    <field name="dateCreate" type="datetime" column="date_create"/>
+
+    <field name="dateModif" type="datetime" column="date_modif"/>
+
+    <field name="priceHT" type="float" column="price_HT"/>
+
+    <field name="priceTTC" type="float" column="price_TTC"/>
+
+    <field name="statutProduct" type="integer" column="statut_product"/>
+
+    <many-to-many field="categories" target-entity="category" mapped-by="products">
+
+    </many-to-many>
+
+
+  </entity>
+
+</doctrine-mapping>

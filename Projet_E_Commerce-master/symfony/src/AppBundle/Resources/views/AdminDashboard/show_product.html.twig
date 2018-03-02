@@ -1,0 +1,54 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}Admin :Products{% endblock %}
+
+{% block body %}
+            <h1 class="my-4"> {{ product.name }}
+                <small>Reference : {{ product.ref }}</small>
+            </h1>
+
+            <!-- Portfolio Item Row -->
+            <div class="row">
+
+                {% if image != NULL %}
+                <div class="col-md-8">
+                    <img class="img-fluid" id="image_prod" src={{ image[0].image }}  alt="">{#<p>750x500</p>#}
+                </div>
+                {% endif %}
+
+                <div id="case_product" class="col-md-4">
+                    <h3 class="my-3">Prix HT</h3>
+                    <p> {{ product.priceHT }} </p>
+                    <h3 class="my-3">Prix TTC</h3>
+                    <p> {{ product.priceTTC }} </p>
+                    <h3 class="my-3">Stock</h3>
+                    <ul>
+                        <p> {{ product.statutProduct }} </p>
+                    </ul>
+                    <a href="/admin/update_article/{{ product.id_product }}">Moddifier Article</a>
+
+                </div>
+
+            </div>
+
+            <div class="row">
+
+                <div id="description">
+                    <h3 class="my-4">Description</h4>
+                        <p>{% autoescape false %}
+                                {{ product.describ }}<br>
+                            {% endautoescape %}</p>
+                </div>
+
+            </div>
+            <div class="row">
+
+                <div id="description">
+                    <h3 class="my-4">Caracterisque</h4>
+                        <p>{% autoescape false %}
+                                {{ product.feature }}<br>
+                            {% endautoescape %}</p>
+                </div>
+
+            </div>
+{% endblock %}

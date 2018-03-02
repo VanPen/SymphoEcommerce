@@ -1,0 +1,53 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Finalisation du pannier{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if app.request.hasPreviousSession %}
+            {% for type, messages in app.session.flashbag.all() %}
+                {% for message in messages %}
+                    <div class="flash-{{ type }}">
+                        <div class="alert alert-info alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            {{ message|raw }}
+                        </div>
+
+                    </div>
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+        <form action="newCommande" method="post">
+            <div class="row">
+                <h3><u>Séléctionnez/ajoutez une adresse de livraison</u> : </h3>
+            </div>
+            <div class="add_adress">
+                <strong><a href="/adress/new">Ajouter une adresse postal</a></strong>
+            </div>
+            {%  for adresse in user.adresses %}
+                {% if adresse.visible == 1 %}
+                    <div style="display: flex">
+                        <input type="radio" name="adress" checked="checked" value="{{ adresse.idAdress }}">
+                        <div class="adress">
+                            {{ adresse.NameAdress }}
+                            {{ adresse.NameDesti }} <br>{{ adresse.adress }} <br>{{ adresse.cp }} {{ adresse.city }}, {{ adresse.country }}
+                        </div>
+                    </div>
+                {% endif %}
+            {% endfor %}
+            <div class="row">
+                <h3><u>Séléctionnez/ajoutez une carte de paiement</u> :</h3>
+            </div>
+            <div class="add_card">
+                <strong><a href="/newCard">Ajouter une carte de paiement</a></strong>
+            </div>
+            {%  for card in user.cards %}
+                <!--<input type="radio" name="card" selected value="{{ card.idCard }}">Date exipration : {{ card.dateExpir }}-->
+            {% endfor %}
+            <div class="payer row">
+                <button class="btn btn-info btn-md" type="submit">Payer</button>
+            </div>
+        </form>
+    </div>
+
+{% endblock %}

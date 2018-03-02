@@ -1,0 +1,14 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}AppBundle:AdminArticle:NewArticle{% endblock %}
+
+{% block body %}
+    {{ dump(a) }}
+{% endblock %}
+        {% block javascripts %}
+            <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+            <script src="{{ asset('js/wyswig.js') }}"></script>
+
+
+        {% endblock %}
+

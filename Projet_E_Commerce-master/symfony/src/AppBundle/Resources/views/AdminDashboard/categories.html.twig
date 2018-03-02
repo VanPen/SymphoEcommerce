@@ -1,0 +1,34 @@
+{% extends "::baseAdmin.html.twig" %}
+
+
+{% block body %}
+    <h1>Categories page</h1>
+        <div class="card">
+            <div class="card-body">
+                <table class="table">
+                    <thead>
+                    <tr class="">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th></th>
+                        <th></th>
+                        <th><a href="/admin/add/category" class="btn btn-primary btn-sm"><i class="fa fa-plus" aria-hidden="true"></i>
+                                Add</a></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        {% for category in categories %}
+                        <th scope="row">{{ category.id_cat }}</th>
+                        <td>{{ category.nameCat }}</td>
+                        <td><a href="/admin/categorie/{{ category.id_cat }}" class="btn btn-primary btn-md">Show</a></td>
+                        <td><a href="#" class="btn btn-danger btn-md">Remove</a></td>
+                    </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+                <div class="navigation text-center">
+                    {{ knp_pagination_render(categories) }}
+                </div>
+            </div>
+{% endblock %}

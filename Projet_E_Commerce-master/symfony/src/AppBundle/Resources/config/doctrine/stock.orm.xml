@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\stockRepository" name="AppBundle\Entity\stock">
+    <id name="id_stock" type="integer" column="id_stock">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="idProduct" type="integer" column="id_product" unique="true"/>
+    <field name="stock" type="integer" column="stock"/>
+    <field name="dateModif" type="datetime" column="date_modif"/>
+  </entity>
+</doctrine-mapping>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\usersRepository" name="AppBundle\Entity\users">
+    <id name="id" type="integer" column="id">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="name" type="string" column="name" length="100"/>
+    <field name="firstName" type="string" column="first_name" length="100"/>
+    <field name="dateCreate" type="datetime" column="date_create"/>
+    <field name="dateModif" type="datetime" column="date_modif"/>
+    <field name="birthDate" type="date" column="birth_date"/>
+    <one-to-many target-entity="adress" mapped-by="user" field="adresses"></one-to-many>
+    <one-to-many target-entity="basket" mapped-by="user" field="basketes"></one-to-many>
+    <one-to-many target-entity="orders" mapped-by="user" field="Orders"></one-to-many>
+    <one-to-many target-entity="card" mapped-by="user" field="cards"></one-to-many>
+  </entity>
+</doctrine-mapping>
+

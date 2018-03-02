@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\ProductToBasketRepository" name="AppBundle\Entity\ProductToBasket">
+    <id name="id_product_basket" type="integer" column="id_product_basket">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="idBasket" type="integer" column="id_basket"/>
+    <field name="idProduct" type="integer" column="id_product"/>
+    <field name="quantity" type="integer" column="quantity"/>
+  </entity>
+</doctrine-mapping>

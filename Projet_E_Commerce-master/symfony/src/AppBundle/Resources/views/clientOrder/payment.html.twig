@@ -1,0 +1,27 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Payment{% endblock %}
+
+{% block body %}
+    {{ dump(card) }}
+    {{ dump(adress) }}
+    {{ dump(nbCard) }}
+    {{ dump(user.basketes[0]) }}
+    {{ dump(basket.totalTTC) }}
+<div class="container">
+    <form action="/payment" method="POST" id="test">
+        <input type="hidden" name="adress" value="{{ adress.idAdress }}">
+        <input type="hidden" name="basket" value="{{ basket.idBasket }}">
+        <script
+                src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                data-key="pk_test_YlAt7ja2nQX3FJwrB9BCPkMW"
+                data-email="{{ user.email }}"
+                data-name="La Sérenité"
+                data-amount ={{ basket.totalTTC|replace({'.': ""})}}0
+                data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                data-locale="fr"
+                data-currency="eur">
+        </script>
+    </form>
+</div>
+{% endblock %}

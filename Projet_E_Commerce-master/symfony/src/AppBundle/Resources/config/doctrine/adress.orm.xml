@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\adressRepository" name="AppBundle\Entity\adress">
+    <id name="id_adress" type="integer" column="id_adress">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="nameAdress" type="text" column="name_adress"/>
+    <field name="nameDesti" type="string" column="name_desti" length="255"/>
+    <field name="adress" type="text" column="adress"/>
+    <field name="cp" type="integer" column="cp"/>
+    <field name="city" type="string" column="city" length="255"/>
+    <field name="country" type="string" column="country" length="255"/>
+    <field name="dateCreate" type="datetime" column="date_create"/>
+    <field name="visible" type="integer" column="visible"/>
+    <many-to-one field="user" target-entity="users" inversed-by="adresses"></many-to-one>
+    <one-to-many target-entity="orders" mapped-by="adresses" field="Orders"></one-to-many>
+  </entity>
+</doctrine-mapping>

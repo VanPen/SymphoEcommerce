@@ -1,0 +1,10 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:basket:addBasket{% endblock %}
+
+{% block body %}
+<form method="post" action="/addBasket/1">
+    <label>Quantiter : </label><input type="number" min="0" value="1" name="quantity">
+    <input type="submit" value="Ajouter au pannier">
+</form>
+{% endblock %}

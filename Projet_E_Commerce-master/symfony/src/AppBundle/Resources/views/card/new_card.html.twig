@@ -1,0 +1,11 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}AppBundle:card:newCard{% endblock %}
+
+{% block body %}
+<h1>Welcome to the card:newCard page</h1>
+    {{ form_start(form) }}
+    <label>Votre Cryptogramme : </label><input type="text" name="csv" placeholder="Cette information ne sera pas enregistrée" title="Cette information ne sera pas enregistrée">
+    {{ form_widget(form) }}
+    {{ form_end(form) }}
+{% endblock %}

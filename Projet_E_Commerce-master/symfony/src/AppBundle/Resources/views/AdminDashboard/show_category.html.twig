@@ -1,0 +1,48 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}Admin :categories{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Admin :Categories page</h1>
+    <table class="table table-hover">
+        <thead>
+        <tr class="">
+            <th>#</th>
+            <th>Name</th>
+            <th>ref</th>
+            <th>Color</th>
+            <th>Weigth</th>
+            <th>Price HT</th>
+            <th>Prive TTC</th>
+            <th>Statut</th>
+        </tr>
+        </thead>
+        <tbody>
+        <form action="/admin/delete/multiple" method="post">
+            {% for product in products %}
+            <tr>
+            <th><input type="checkbox" name="choix[]" value="{{ product.id_product }}"></th>
+            <td scope="row">{{ product.id_product }}</td>
+            <td><a href="/admin/product/{{ product.id_product }}">{{ product.name }}</a></td>
+            <td>{{ product.ref }}</td>
+            <td>{{ product.color }}</td>
+            <td>{{ product.weigth }}</td>
+            <td>{{ product.price_HT }}</td>
+            <td>{{ product.price_TTC }}</td>
+        {% if product.statut_product == 1 %}
+            <td><label class="badge badge-success">For sale</label></a></td>
+        {% else %}
+            <td><label class="badge badge-danger">Out of stock</label></td>
+        {% endif %}
+        </tr>
+    {% endfor %}
+            <input type="hidden" name="id_cat" value="{{ products.items[0].category_id }}">
+            <button type="submit" class="btn btn-danger">Delete</button>
+            </form>
+        </tbody>
+    </table>
+    <div class="navigation text-center">
+        {{ knp_pagination_render(products) }}
+    </div>
+
+{% endblock %}

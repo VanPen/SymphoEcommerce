@@ -1,0 +1,23 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}Admin add category{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <form action="/admin/add/category_submit" method="post">
+            <div class="form-group">
+                <label for="name">Name:</label>
+                <input type="text" class="form-control" name="name">
+            </div>
+            <div class="form-group">
+                <label for="describe">Describe:</label>
+                <textarea style="height: 90%;width:90%; margin: 0" name="describe"></textarea>
+            </div>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="{{ asset('js/wyswig.js') }}"></script>
+{% endblock %}

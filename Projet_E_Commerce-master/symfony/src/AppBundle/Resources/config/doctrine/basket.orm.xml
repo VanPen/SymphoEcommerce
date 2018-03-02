@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity repository-class="AppBundle\Repository\basketRepository" name="AppBundle\Entity\basket">
+    <id name="id_basket" type="integer" column="id_basket">
+      <generator strategy="AUTO"/>
+    </id>
+    <field name="userId" type="integer" column="user_id"/>
+    <field name="productNumbers" type="integer" column="product_numbers"/>
+    <field name="totalHT" type="float" column="total_HT"/>
+    <field name="totalTTC" type="float" column="total_TTC"/>
+    <field name="totalWeight" type="float" column="total_weight"/>
+    <field name="statusBasket" type="integer" column="status_basket"/>
+    <one-to-many
+            field="quantities"
+            target-entity="quantity"
+            mapped-by="basket"/>
+    <many-to-one field="user" target-entity="users" inversed-by="basketes"></many-to-one>
+  </entity>
+</doctrine-mapping>

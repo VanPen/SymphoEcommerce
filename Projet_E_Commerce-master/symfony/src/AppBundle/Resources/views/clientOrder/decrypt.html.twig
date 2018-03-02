@@ -1,0 +1,32 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Verification Carte{% endblock %}
+
+{% block body %}
+    <div class="container">
+        {% if app.request.hasPreviousSession %}
+        {% for type, messages in app.session.flashbag.all() %}
+        {% for message in messages %}
+        <div class="flash-{{ type }}">
+            <div class="alert alert-info alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                {{ message|raw }}
+            </div>
+        {% endfor %}
+        {% endfor %}
+        {% endif %}
+
+        </div>
+        <h4>PAYEMENT</h4>
+        <h4>Nous avons besoin de décrypter votre carte pour accéder au paiment</h4>
+        <form action="/decryptMe" method="post">
+            <input type="hidden" name="adress" value="{{ post['adress'] }}">
+                <p class="error">Vous n'avez pas d'adresse <a href="/adress/new">Cliquez içi pour en ajouter une</a></p>
+            {% if card %}
+                <input type="hidden" name="card" value="{{ post['card'] }}">
+                <label>Le cryptograme de la carte avec la date {{ card.dateExpir }} : </label><input type="text" name="csv">
+            {% endif %}
+            <button class="btn btn-primary btn-md" type="submit">Valider</button>
+        </form>
+    </div>
+{% endblock %}

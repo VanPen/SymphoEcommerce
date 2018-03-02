@@ -1,0 +1,18 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="title_search">Products catégory : <strong>{{ cateName.nameCat }}</strong></h3>
+        <div class="row">
+        {% for test in test %}
+                <div class="products">
+                    <a href="/fiche_prod/{{ test.id_product }}">{{ test.name }}<br>
+                        <img class="result_miniature" src="{{ test.image }}" style="width: 60%;margin-top: 15 px"></a>
+                </div>
+        {% endfor %}
+        </div>
+        <div class="navigation" style="margin: auto;">
+            {{ knp_pagination_render(test) }}
+        </div>
+    </div>
+{% endblock %}

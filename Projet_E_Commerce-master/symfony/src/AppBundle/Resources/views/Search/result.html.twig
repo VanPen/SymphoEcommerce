@@ -1,0 +1,23 @@
+{% extends "::base.html.twig" %}
+
+{% block body %}
+    <div class="container">
+        <h3 class="title_search">Résultat de votre recherche: <strong>{{ search }}</strong></h3>
+        <div class="row">
+            {% for recoucou in recoucou %}
+                {% if recoucou is not defined %}
+                    <div id="description">
+                        <p>No result</p>
+                    </div>
+                {% else %}
+                    <div class="products">
+                        <a href="/fiche_prod/{{ recoucou.id_product }}">{{ recoucou.name }}<br>
+                            <img class="result_miniature" src="{{ recoucou.image }}" style="width: 60%;margin-top: 15 px"></a>
+                        </a>
+                    </div>
+                {% endif %}
+            {% endfor %}
+       </div>
+    </div>
+{% endblock %}
+

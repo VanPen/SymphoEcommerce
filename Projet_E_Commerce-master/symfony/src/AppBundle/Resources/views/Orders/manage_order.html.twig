@@ -1,0 +1,60 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}AppBundle:Orders:manageOrder{% endblock %}
+
+{% block body %}
+<h1>Welcome to the Orders:manageOrder page</h1>
+
+    {% for message in app.flashes('notice') %}
+        <div class="alert alert-notice">
+            {{ message }}
+        </div>
+    {% endfor %}
+
+    <div class="table-responsive">
+        <table class="table center-aligned-table">
+            <thead>
+            <tr class="text-primary">
+                <th>No</th>
+                <th>No Products</th>
+                <th>Total Weight</th>
+                <th>Created</th>
+                <th>Status</th>
+                <th>Adress</th>
+                <th>Price</th>
+                <th></th>
+                <th></th>
+            </tr>
+            </thead>
+            <tbody>
+                <tr class="">
+                    <td>{{ order.idOrder }}</td>
+                    <form method="POST" action="/admin/manage_order/{{ order.idOrder }}/submit">
+                        <td>{{ order.nbProduct }}</td>
+                        <td><input type="number" name="totalWeight" placeholder="{{ order.totalWeight }}" value="{{ order.totalWeight }}"></td>
+                        <td>{{ order.dateOrder|date('d-m-Y') }}</td>
+                        <td>
+                            <select name="status">
+                                <option value="0">Waiting</option>
+                                <option value="1">in Progress</option>
+                                <option value="2">in Delivery</option>
+                                <option value="3">Finish</option>
+                                <option value="4">Cancel</option>
+                            </select>
+                        </td>
+                        <td>
+                            <select name="adress">
+                                {% for add in adress %}
+                                <option value="{{ add.IdAdress }}">{{ add.nameAdress }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                        <td>{{ order.totalTTC }}€</td>
+                        <td><button type="submit" class="btn btn-primary">Modified</button></td>
+                    </form>
+                    <td><button class="btn btn-danger ">Remove</button></td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

@@ -1,0 +1,47 @@
+{% extends "::base.html.twig" %}
+
+{% block title %}Orders {% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="row">
+            <h3>Vos Commandes</h3>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr class="">
+                <th>No</th>
+                <th>Date</th>
+                <th>Price TTC</th>
+                <th>Price HT</th>
+                <th>Status</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if orders == null %}
+                <p>Aucunes commandes</p>
+            {% endif%}
+            {% for order in orders %}
+                <tr>
+                    <th scope="row">{{ order.idOrder }}</th>
+                    <td>{{ order.dateOrder|date('d-m-Y') }}</td>
+                    <td>{{ order.totalTTC }}</td>
+                    <td>{{ order.totalHT }}</td>
+                    {% if order.orderStatus == 0 %}
+                        <td><label class="btn btn-warning btn-sm">Waiting</label></td>
+                    {% elseif order.orderStatus == 1 %}
+                        <td><label class="btn btn-primary btn-sm">in Progress</label></td>
+                    {% elseif order.orderStatus == 2 %}
+                        <td><label class="btn btn-info btn-sm">in Delivery</label></td>
+                    {% elseif order.orderStatus == 3 %}
+                        <td><label class="btn btn-success btn-sm">Finish</label></td>
+                    {% else  %}
+                        <td><label class="btn btn-danger btn-sm">Cancel</label></td>
+                    {% endif %}
+                    <td><a href="/order/details/{{ order.idOrder }}"><button type="button" class="btn btn-primary">Détails</button></a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

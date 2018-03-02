@@ -1,0 +1,95 @@
+{% extends "::baseAdmin.html.twig" %}
+
+
+{% block body %}
+
+    <h3>Détails Commandes</h3>
+    <div style="height: 80%">
+        <div class="details_commande" style="height: 100%">
+            <p><u><strong>Name</strong></u> : {{ order.user.name }}<br>
+                <u><strong>Firt Name</strong></u> : {{ order.user.firstName }}<br>
+                <u><strong>Adress</strong></u> : {{ order.adresses.adress }}<br>
+                {{ order.adresses.cp }} {{ order.adresses.city }}<br>
+                {{ order.adresses.country }}
+            </p>
+        <textarea name="facture" style="height: 90%;width:90%; margin: 0"><div class="container">
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="invoice-title">
+                            <h2>Facture</h2>
+                            <h3 class="pull-right">N°{{ random(10000) }}</h3>
+                        </div>
+                        <div class="row">
+                            <div class="col-xs-6" style="text-align: right;">
+                                <address>
+                                <strong>Adresse :</strong><br>
+                                    La séréniter<br>
+                                    1234 Rue Jean c'est rien<br>
+                                    Lyon, 69000<br>
+                                    France
+
+                                    <strong>Date :</strong><br>
+                                    {{ "now"|date(" d/m/Y") }}<br>
+                                </address>
+                                <br>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="panel panel-default">
+                            <hr>
+                            <br>
+                            <div class="panel-body">
+                                <div class="table-responsive">
+                                    <table class="table table-condensed">
+                                        <thead>
+                                            <tr>
+                                                <td><strong>Item</strong></td>
+                                                <td class="text-center"><strong>Name</strong></td>
+                                                <td class="text-center"><strong>Price TTC</strong></td>
+                                                <td class="text-center"><strong>Price HT</strong></td>
+                                                <td class="text-center"><strong>Quantity</strong></td>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                         {% for prod in order.basketes.quantities %}
+                                             <tr>
+                                                 <td>Ref : {{ prod.product.ref }}</td>
+                                                 <td>{{ prod.product.name }} </td>
+                                                 <td>{{ prod.product.priceTTC }} €</td>
+                                                 <td>{{ prod.product.priceHT }} €</td>
+                                                 <td>{{ prod.quant }}</td>
+                                            </tr>
+                                         {% endfor %}
+                                            <tr>
+                                                <td class="no-line"></td>
+                                                <td class="no-line"></td>
+                                                <td class="no-line"></td>
+                                                <td class="no-line text-center"><strong>Total HT</strong></td>
+                                                <td class="no-line text-right">{{ order.basketes.quantities[0].basket.totalHT }} €</td>
+                                            </tr>
+                                            <tr>
+                                                <td class="no-line"></td>
+                                                <td class="no-line"></td>
+                                                <td class="no-line"></td>
+                                                <td class="no-line text-center"><strong>Total TTC</strong></td>
+                                                <td class="no-line text-right">{{ order.basketes.quantities[0].basket.totalTTC }} €</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </textarea>
+    </div>
+{% endblock %}
+{% block javascripts %}
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+    <script src="{{ asset('js/wyswig.js') }}"></script>
+{% endblock %}

@@ -1,0 +1,71 @@
+{% extends "::baseAdmin.html.twig" %}
+
+{% block title %}AppBundle:AdminArticle:NewArticle{% endblock %}
+
+{% block body %}
+    <h1>Welcome to the AdminArticle:NewArticle page</h1>
+    <form id="myform" action="go/{{ product.id_product }}" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+            <label for="">Nom du produit: <input class="form-control" type="text" name="name" value = "{{ product.name }}" required></label>
+        </div>
+        <div class="form-group">
+            <label for="">Categorie
+                <select class="form-control" name="category" id="">
+                    {% for category in category %}
+                        <option value="{{ category.id_Cat }}">{{ category.nameCat }}</option>
+                    {% endfor %}
+                </select>
+            </label>
+        </div>
+        <div class="form-group">
+            <label>Description<textarea name="describ" value="">{{ product.describ }}</textarea></label>
+        </div>
+        <div class="form-group">
+            <label>Caractéristique<textarea name="feature">{{ product.feature }}</textarea></label>
+        </div>
+        <div class="form-group">
+            <label for="">color : <input class="form-control" type="text" name="color" value="{{ product.color }}"></label>
+        </div>
+        <div class="form-group">
+            <label for="">Poid (KG): <input class="form-control" type="number" name="weigth" value="{{ product.weigth }}" required></label>
+        </div>
+        <div class="form-group">
+            <label for="">PRIX HT (€)(TVA 20% ajoutée automatiquement): <input class="form-control" type="number" name="price_HT" value="{{ product.priceHT }}" required></label>
+        </div>
+        <div class="form-group">
+            {% if stock is empty %}
+                <label for="">Stock (par unitée): <input class="form-control" type="number" name="stock" value="0" required></label>
+            {% else %}
+                <label for="">Stock (par unitée): <input class="form-control" type="number" name="stock" value="{{ stock[0].stock }}" required></label>
+
+            {% endif %}
+        </div>
+        <div class="form-group">
+            <p>En vente ?</p>
+            <label for="">oui<input class="form-control" type="radio" name="statut" value=1 checked></label>
+            <label for="">non<input class="form-control" type="radio" name="statut" value=0 ></label>
+        </div>
+        <div class="form-group">
+            <label for="">Ajouter des images<br>
+                <input type="file" name="image[]" multiple><br>
+            </label>
+        </div>
+        <div class="col-md-8">
+            {% for images in image %}
+                <label for="delete[]">cocher pour suprimer
+                <input class="form_control" name="delete[]" type="checkbox">
+                <img class="img-fluid" id="image_prod" src='{{ images.image }}'  alt="{{ images.image }}">{#<p>750x500</p>#}
+                </label>
+            {%  endfor %}
+        </div>
+
+        <input class="btn btn-primary" type="submit" value="créé">
+    </form>
+{% endblock %}
+        {% block javascripts %}
+            <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+            <script src="{{ asset('js/wyswig.js') }}"></script>
+
+
+        {% endblock %}
+
